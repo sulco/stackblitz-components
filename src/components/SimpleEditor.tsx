@@ -1,7 +1,10 @@
-import { useSimpleEditor } from '@hooks/useSimpleEditor.js';
+import { useWebContainer } from '@hooks/useWebContainer.js';
+import { useEditor } from '@hooks/useEditor.js';
 import CodeMirrorEditor from '@tutorialkit/components-react/core/CodeMirrorEditor';
 import FileTree from '@tutorialkit/components-react/core/FileTree';
 import { lazy, Suspense, useEffect, useState } from 'react';
+
+import { files } from '../content/files.js';
 
 const Terminal = lazy(
   () => import('@tutorialkit/components-react/core/Terminal'),
@@ -10,16 +13,10 @@ const Terminal = lazy(
 export function SimpleEditor() {
   const [domLoaded, setDomLoaded] = useState(false);
 
-  const {
-    setTerminal,
-    previewSrc,
-    document,
-    files,
-    onChange,
-    onScroll,
-    selectedFile,
-    setSelectedFile,
-  } = useSimpleEditor();
+  const { setTerminal, previewSrc } = useWebContainer(files);
+
+  const { document, onChange, onScroll, selectedFile, setSelectedFile } =
+    useEditor(files, '/src/index.js');
 
   useEffect(() => {
     setDomLoaded(true);
@@ -29,7 +26,7 @@ export function SimpleEditor() {
     <div className="w-full h-full overflow-hidden grid grid-rows-2 grid-cols-10 border-1 border-gray-200 rounded-xl">
       <FileTree
         className="grid-col-span-2 text-sm mt-2"
-        files={files}
+        files={Object.keys(files)}
         hideRoot
         selectedFile={selectedFile}
         onFileSelect={setSelectedFile}

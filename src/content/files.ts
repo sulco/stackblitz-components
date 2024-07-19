@@ -1,6 +1,6 @@
 import type { EditorDocument } from '@tutorialkit/components-react/core';
 
-let FILES: Record<string, EditorDocument> = {};
+let files: Record<string, EditorDocument> = {};
 
 [
   '/src/index.js',
@@ -10,12 +10,12 @@ let FILES: Record<string, EditorDocument> = {};
 ].forEach(async (filePath) => {
   console.log(filePath);
 
-  FILES[filePath] = {
+  files[filePath] = {
     filePath,
     loading: false,
     value: (await import(/* @vite-ignore */ `.${filePath}?raw&import`)).default,
   };
 });
 
-export { FILES };
+export { files };
 
