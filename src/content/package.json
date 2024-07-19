@@ -1,0 +1,12 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "Hello, world!",
+  "main": "index.js",
+  "scripts": {
+    "start": "servor src/ --reload"
+  },
+  "dependencies": {
+    "servor": "4.0.2"
+  }
+}
